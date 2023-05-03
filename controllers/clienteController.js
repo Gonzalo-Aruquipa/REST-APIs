@@ -23,18 +23,26 @@ exports.getCliente = async (req, res, next) => {
 
 exports.getIdCliente = async (req, res, next) => {
   const cliente = await Cliente.findById(req.params.id);
-
-  if(!cliente) {
-    res.send({ mensaje: "cliente not found" });
+  try {
+    if (!cliente) {
+      throw new Error("cliente not found");
+    }
+    res.status(200).json(cliente);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-  res.send(cliente);
 };
+
 
 exports.updateCliente = async (req, res) => {
   try {
-    let cliente = await Cliente.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    });
+    let cliente = await Cliente.findByIdAndUpdate(
+      { _id: req.params.id },
+      req.body,
+      {
+        new: true,
+      }
+    );
     res.status(200).json(cliente);
   } catch (error) {
     res.status(400).send(error.message);
@@ -42,15 +50,10 @@ exports.updateCliente = async (req, res) => {
 };
 
 exports.deleteCliente = async (req, res) => {
-
- 
-
   try {
-    await Cliente.findByIdAndDelete(req.params.id)
-
-    res.status(200).json("Delete client successful");
+    await Cliente.findByIdAndDelete(req.params.id);
+    res.status(200).json("Delete client successfully");
   } catch (error) {
     res.status(400).send(error.message);
   }
 };
-

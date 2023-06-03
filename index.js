@@ -18,6 +18,8 @@ app.use(cors());
 
 app.use("/", routes());
 
+app.use(express.static("uploads"));
+
 app.listen(3000, () => {
   console.log("listening on port 3000");
 });

@@ -25,6 +25,7 @@ module.exports = function () {
     productController.updateProduct
   );
   router.delete("/products/:id", productController.deleteProduct);
+  router.get("/search", productController.searchProduct);
 
   router.post("/pedidos", pedidoController.newPedido);
   router.get("/pedidos", pedidoController.getPedidos);

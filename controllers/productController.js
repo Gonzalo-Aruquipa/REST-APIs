@@ -103,3 +103,17 @@ exports.deleteProduct = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
+
+exports.searchProduct = async (req, res) => {
+
+  const {name} = req.query;
+
+  try {
+    const product = await Product.find({name: new RegExp(name, "i")})
+    res.send(product)
+    
+  } catch (error) {
+    console.log(error)
+  }
+
+}

@@ -11,7 +11,10 @@ const pedidoSchema = new Schema({
       type:  Schema.ObjectId,
       ref: "Product"
     },
-    cantidad:  Number
+    priceintro: Number,
+    cantidad:  Number,
+    subtotal: Number,
+    
   }],
 
   total: {

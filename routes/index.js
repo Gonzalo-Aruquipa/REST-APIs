@@ -2,6 +2,7 @@ const Router = require("express");
 const clienteController = require("../controllers/clienteController");
 const productController = require("../controllers/productController");
 const pedidoController = require("../controllers/pedidoController");
+const userController = require("../controllers/userController");
 
 const router = Router();
 
@@ -32,6 +33,10 @@ module.exports = function () {
   router.get("/pedidos/:id", pedidoController.getIdPedido);
   router.put("/pedidos/:id", pedidoController.updatePedido);
   router.delete("/pedidos/:id", pedidoController.deletePedido);
+
+
+  router.post("/register", userController.register)
+  router.post("/login", userController.login)
 
   return router;
 };

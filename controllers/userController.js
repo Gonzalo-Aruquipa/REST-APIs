@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
       );
       res.send(token);
     } else {
-      res.send("Incorrect password");
+      res.status(400).send("Incorrect password");
     }
   } else {
     res.status(401).send("Invalid User");

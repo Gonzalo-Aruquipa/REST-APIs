@@ -9,7 +9,6 @@ exports.newCliente = async (req, res) => {
     res.status(400).send(error.message);
   }
 };
-// mongodb+srv://totovalv:3479@cluster0.dzobm4a.mongodb.net/test
 
 exports.getCliente = async (req, res, next) => {
   try {

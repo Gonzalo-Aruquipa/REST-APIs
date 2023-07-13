@@ -10,11 +10,25 @@ mongoose.connect("mongodb://localhost:27017/restapis", {
   useNewUrlParser: true,
 });
 
+const urlArray = ["http://127.0.0.1:5173"]
+
+const corsOptions = {
+  origin: (origin, callback) =>{
+    console.log(origin)
+    const exists = urlArray.some(dominio => dominio === origin);
+    if(exists){
+      callback(null, true)
+    }else{
+      callback(new Error("No permitio por CORS"))
+    }
+  }
+}
+
 const app = express();
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/", routes());
 

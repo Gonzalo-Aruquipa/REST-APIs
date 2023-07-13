@@ -8,36 +8,36 @@ const auth = require("../middlewares/auth");
 const router = Router();
 
 module.exports = function () {
-  router.post("/clientes", clienteController.newCliente);
+  router.post("/clientes", auth, clienteController.newCliente);
   router.get("/clientes", auth, clienteController.getCliente);
-  router.get("/clientes/:id", clienteController.getIdCliente);
-  router.put("/clientes/:id", clienteController.updateCliente);
-  router.delete("/clientes/:id", clienteController.deleteCliente);
+  router.get("/clientes/:id", auth, clienteController.getIdCliente);
+  router.put("/clientes/:id", auth, clienteController.updateCliente);
+  router.delete("/clientes/:id", auth, clienteController.deleteCliente);
 
   router.post(
     "/products",
     productController.subirArchivo,
     productController.newProduct
   );
-  router.get("/products", productController.getProducts);
-  router.get("/products/:id", productController.getIdProducts);
+  router.get("/products", auth, productController.getProducts);
+  router.get("/products/:id", auth, productController.getIdProducts);
   router.put(
     "/products/:id",
+    auth,
     productController.subirArchivo,
     productController.updateProduct
   );
-  router.delete("/products/:id", productController.deleteProduct);
-  router.get("/search", productController.searchProduct);
+  router.delete("/products/:id", auth, productController.deleteProduct);
+  router.get("/search", auth, productController.searchProduct);
 
-  router.post("/pedidos", pedidoController.newPedido);
-  router.get("/pedidos", pedidoController.getPedidos);
+  router.post("/pedidos", auth, pedidoController.newPedido);
+  router.get("/pedidos", auth, pedidoController.getPedidos);
   router.get("/pedidos/:id", pedidoController.getIdPedido);
   router.put("/pedidos/:id", pedidoController.updatePedido);
   router.delete("/pedidos/:id", pedidoController.deletePedido);
 
-
-  router.post("/register", userController.register)
-  router.post("/login", userController.login)
+  router.post("/register", userController.register);
+  router.post("/login", userController.login);
 
   return router;
 };

@@ -4,13 +4,19 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config({ path: ".env" });
+
+const { URL, DB_URL } = process.env;
+
+
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/restapis", {
+mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
 
-const urlArray = ["http://127.0.0.1:5173"]
+const urlArray = [URL]
 
 const corsOptions = {
   origin: (origin, callback) =>{

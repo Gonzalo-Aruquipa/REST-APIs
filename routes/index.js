@@ -15,7 +15,7 @@ module.exports = function () {
   router.delete("/clientes/:id", auth, clienteController.deleteCliente);
 
   router.post(
-    "/products",
+    "/products", auth, 
     productController.subirArchivo,
     productController.newProduct
   );

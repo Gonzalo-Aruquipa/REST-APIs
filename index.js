@@ -7,7 +7,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 
-const { URL, DB_URL } = process.env;
+const { URL, DB_URL, PORT, HOST } = process.env;
 
 
 
@@ -20,7 +20,6 @@ const urlArray = [URL]
 
 const corsOptions = {
   origin: (origin, callback) =>{
-    console.log(origin)
     const exists = urlArray.some(dominio => dominio === origin);
     if(exists){
       callback(null, true)
@@ -31,6 +30,7 @@ const corsOptions = {
 }
 
 const app = express();
+app.use(express.static("uploads"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,8 +38,9 @@ app.use(cors(corsOptions));
 
 app.use("/", routes());
 
-app.use(express.static("uploads"));
 
-app.listen(3000, () => {
-  console.log("listening on port 3000");
+const host = HOST || "0.0.0.0"
+const port = PORT || 3000
+app.listen(port, host, () => {
+  console.log(`listening on port ${PORT}`);
 });
